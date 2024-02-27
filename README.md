@@ -1,7 +1,7 @@
 <center>
   <p align="center">
   &nbsp;&nbsp;&nbsp;
-   <img src="https://mirantes.io/_next/static/media/mirantes-white.52c9010f.svg" alt="Fastify Logo" width="170" />&nbsp;&nbsp;
+   <img src="https://mirantes.io/_next/static/media/mirantes-white.52c9010f.svg" alt="Fastify Logo" width="150" />&nbsp;&nbsp;
     <img src="https://nodejs.org/static/images/logo.svg" alt="Fastify Logo" width="200" style="margin: 12px" />
   </p>  
   <h2 align="center">🚀 Mirantes Authentication API microservice with NodeJS</h2>
