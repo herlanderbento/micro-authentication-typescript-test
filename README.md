@@ -15,28 +15,28 @@
 
 Just clone the Repository:
 
-#### HTTPS
+###### HTTPS
 
 ```sh
 git clone https://github.com/herlanderbento/micro-authentication-api-typescript.git
 ```
 
-#### SSH
+###### SSH
 
 ```sh
 git clone git@github.com:herlanderbento/micro-authentication-api-typescript.git
 ```
 
-<!-- Upload the project containers
+Upload the project containers
 <br/>
 
 ```sh
 docker-compose up -d
 ```
-
+###### or
 ```sh
 npm run docker:up
-``` -->
+```
 
 <br/>
 

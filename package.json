@@ -10,7 +10,10 @@
     "build": "rimraf build && babel src --extensions \".js,.ts\" --out-dir build --copy-files --no-copy-ignored",
     "test": "jest",
     "cti": "cti",
-    "cti:make": "sh ./cti.sh"
+    "cti:make": "sh ./cti.sh",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down"
+
   },
   "keywords": [],
   "author": "",
