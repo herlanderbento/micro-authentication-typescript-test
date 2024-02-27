@@ -1,0 +1,1543 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Micro Authentication API - Mirantes Technologic",
+    "description": "Microsservice Authentication API, documentation for developers",
+    "version": "1.0.1",
+    "contact": {
+      "email": "herlander.bento@mirantes.io"
+    }
+  },
+  "paths": {
+    "/v1/auth/login": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Authentication user",
+        "description": "Authentication user",
+        "parameters": [
+          {
+            "name": "devices",
+            "in": "header",
+            "description": "devices",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "required": true,
+                    "type": "string",
+                    "example": "johndoe@gmail.com"
+                  },
+                  "password": {
+                    "required": true,
+                    "type": "string",
+                    "example": "some password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsidmFsdWUiOiI5ODU1OWM4Mi03MWQ5LTQyZmMtODFmYy0zMGI0MDRkNTcxYzgifSwiaWF0IjoxNzA4MzM5NTg2LCJleHAiOjE3MDgzNDMxODZ9.tUX7zHNJTCNyIOSrMWk49I5S76UOwJy-8OJ_jTU-pdA"
+                        },
+                        "refreshToken": {
+                          "type": "string",
+                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsidmFsdWUiOiI5ODU1OWM4Mi03MWQ5LTQyZmMtODFmYy0zMGI0MDRkNTcxYzgifSwiaWF0IjoxNzA4MzM5NTg2LCJleHAiOjE3MDgzNDMxODZ9.tUX7zHNJTCNyIOSrMWk49I5S76UOwJy-8OJ_jTU-pdA"
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "uuid",
+                              "example": "98559c82-71d9-42fc-81fc-30b404d571c8"
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "John Doe"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "John Doe"
+                            },
+                            "password": {
+                              "type": "string",
+                              "example": "johndoe@gmail.com"
+                            },
+                            "phone": {
+                              "type": "string",
+                              "example": "+244 000 111 222"
+                            },
+                            "status": {
+                              "type": "string",
+                              "example": "pending"
+                            },
+                            "isPhoneVerified": {
+                              "type": "boolean",
+                              "example": false
+                            },
+                            "isEmailVerified": {
+                              "type": "boolean",
+                              "example": false
+                            },
+                            "createdAt": {
+                              "type": "date",
+                              "example": "2024-02-19T10:46:26.694Z"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "Email or password incorrect!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "example": "email is a required field; email must be a valid email"
+                        },
+                        "password": {
+                          "type": "string",
+                          "example": "password is a required field"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/forgot-password": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "forgot password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "johndoe@gmail.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "example": "email is a required field; email must be a valid email"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/reset-password": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "reset password",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "token",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": {
+                    "type": "string",
+                    "example": "some password"
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "example": "some confirm password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "409": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "Token invalid!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "password": {
+                          "type": "string",
+                          "example": "password is a required field"
+                        },
+                        "confirmPassword": {
+                          "type": "string",
+                          "example": "confirmPassword is a required field"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/verify-code": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Verify code user",
+        "description": "Confirm verify code of user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "required": true,
+                    "type": "string",
+                    "example": "12691"
+                  },
+                  "email": {
+                    "required": true,
+                    "type": "string",
+                    "example": "johndoe@gmail.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "Invalid verification code"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "example": "code is a required field"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "email is a required field; email must be a valid email"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/send-verify-code": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "send verify code user",
+        "description": "Send confirm verify code of user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "required": true,
+                    "type": "string",
+                    "example": "johndoe@gmail.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "example": "email is a required field; email must be a valid email"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/logout": {
+      "delete": {
+        "tags": ["Authentication"],
+        "summary": "logout user",
+        "description": "logout user",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "409": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "Token invalid!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "jwt must be provided, invalid token"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/v1/google/one-top/register": {
+      "post": {
+        "tags": ["Authentication Social Media"],
+        "summary": "Google social register",
+        "description": "Google social register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "credential": {
+                    "required": true,
+                    "type": "string",
+                    "example": "some credential"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "credential": {
+                          "type": "string",
+                          "example": "credential is a required field"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/google/one-top/login": {
+      "post": {
+        "tags": ["Authentication Social Media"],
+        "summary": "Google social login one top",
+        "description": "Google social login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "credential": {
+                    "required": true,
+                    "type": "string",
+                    "example": "some credential"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "credential": {
+                          "type": "string",
+                          "example": "credential is a required field"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/google/register": {
+      "post": {
+        "tags": ["Authentication Social Media"],
+        "summary": "Google social register",
+        "description": "Google social register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accessToken": {
+                    "required": true,
+                    "type": "string",
+                    "example": "some credential"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "accessToken is a required field"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/google/login": {
+      "post": {
+        "tags": ["Authentication Social Media"],
+        "summary": "Google social login",
+        "description": "Google social login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accessToken": {
+                    "required": true,
+                    "type": "string",
+                    "example": "some credential"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "accessToken is a required field"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/linkedin/register": {
+      "post": {
+        "tags": ["Authentication Social Media"],
+        "summary": "Linkedin social register",
+        "description": "Linkedin social register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "required": true,
+                    "type": "string",
+                    "example": "AQSBmNpT1YUi1lWqlP5nNXKG2YO3Eeo3TCjcejUUrjOeKraEGs7ImOd5-EmtCBtcNeJl61-1kWbiFU1qekiZsnnqgX2x4s138L6a25H10eqKMzg6nPfvj1mVcjy__Fi2WJcHfrMcPGBRips4Ru0zzmGwumTJZ1FeSNU9pFJKWPvjwPPd_FtFsauVL5Y61u9TkiLnVZN7Pv2PLre2FvQ"
+                  },
+                  "redirectUri": {
+                    "required": true,
+                    "type": "string",
+                    "example": "https://new-design.b2c.mirantes.io/auth/sign-up"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsidmFsdWUiOiI5ODU1OWM4Mi03MWQ5LTQyZmMtODFmYy0zMGI0MDRkNTcxYzgifSwiaWF0IjoxNzA4MzM5NTg2LCJleHAiOjE3MDgzNDMxODZ9.tUX7zHNJTCNyIOSrMWk49I5S76UOwJy-8OJ_jTU-pdA"
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "uuid",
+                              "example": "98559c82-71d9-42fc-81fc-30b404d571c8"
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "John Doe"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "John Doe"
+                            },
+                            "password": {
+                              "type": "string",
+                              "example": "johndoe@gmail.com"
+                            },
+                            "phone": {
+                              "type": "string",
+                              "example": "+244 000 111 222"
+                            },
+                            "status": {
+                              "type": "string",
+                              "example": "pending"
+                            },
+                            "isPhoneVerified": {
+                              "type": "boolean",
+                              "example": false
+                            },
+                            "isEmailVerified": {
+                              "type": "boolean",
+                              "example": false
+                            },
+                            "role": {
+                              "type": "string",
+                              "example": "admin or user"
+                            },
+                            "createdAt": {
+                              "type": "date",
+                              "example": "2024-02-19T10:46:26.694Z"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "User already exists"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "example": "code is a required field"
+                        },
+                        "redirectUri": {
+                          "type": "string",
+                          "example": "redirectUri is a required field"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/linkedin/login": {
+      "post": {
+        "tags": ["Authentication Social Media"],
+        "summary": "Linkedin social login",
+        "description": "Linkedin social login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "required": true,
+                    "type": "string",
+                    "example": "AQSBmNpT1YUi1lWqlP5nNXKG2YO3Eeo3TCjcejUUrjOeKraEGs7ImOd5-EmtCBtcNeJl61-1kWbiFU1qekiZsnnqgX2x4s138L6a25H10eqKMzg6nPfvj1mVcjy__Fi2WJcHfrMcPGBRips4Ru0zzmGwumTJZ1FeSNU9pFJKWPvjwPPd_FtFsauVL5Y61u9TkiLnVZN7Pv2PLre2FvQ"
+                  },
+                  "redirectUri": {
+                    "required": true,
+                    "type": "string",
+                    "example": "https://new-design.b2c.mirantes.io/auth/sign-up"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsidmFsdWUiOiI5ODU1OWM4Mi03MWQ5LTQyZmMtODFmYy0zMGI0MDRkNTcxYzgifSwiaWF0IjoxNzA4MzM5NTg2LCJleHAiOjE3MDgzNDMxODZ9.tUX7zHNJTCNyIOSrMWk49I5S76UOwJy-8OJ_jTU-pdA"
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "uuid",
+                              "example": "98559c82-71d9-42fc-81fc-30b404d571c8"
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "John Doe"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "John Doe"
+                            },
+                            "password": {
+                              "type": "string",
+                              "example": "johndoe@gmail.com"
+                            },
+                            "phone": {
+                              "type": "string",
+                              "example": "+244 000 111 222"
+                            },
+                            "status": {
+                              "type": "string",
+                              "example": "pending"
+                            },
+                            "isPhoneVerified": {
+                              "type": "boolean",
+                              "example": false
+                            },
+                            "isEmailVerified": {
+                              "type": "boolean",
+                              "example": false
+                            },
+                            "role": {
+                              "type": "string",
+                              "example": "admin or user"
+                            },
+                            "createdAt": {
+                              "type": "date",
+                              "example": "2024-02-19T10:46:26.694Z"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "User already exists"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "example": "code is a required field"
+                        },
+                        "redirectUri": {
+                          "type": "string",
+                          "example": "redirectUri is a required field"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/v1/pc/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create user",
+        "description": "Create user",
+        "parameters": [
+          {
+            "name": "devices",
+            "in": "header",
+            "description": "devices",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "required": true,
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "email": {
+                    "required": true,
+                    "type": "string",
+                    "example": "johndoe@gmail.com"
+                  },
+                  "phone": {
+                    "required": true,
+                    "type": "string",
+                    "example": "+000 111 222 333"
+                  },
+                  "password": {
+                    "required": true,
+                    "type": "string",
+                    "example": "some password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsidmFsdWUiOiI5ODU1OWM4Mi03MWQ5LTQyZmMtODFmYy0zMGI0MDRkNTcxYzgifSwiaWF0IjoxNzA4MzM5NTg2LCJleHAiOjE3MDgzNDMxODZ9.tUX7zHNJTCNyIOSrMWk49I5S76UOwJy-8OJ_jTU-pdA"
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "uuid",
+                              "example": "98559c82-71d9-42fc-81fc-30b404d571c8"
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "John Doe"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "John Doe"
+                            },
+                            "password": {
+                              "type": "string",
+                              "example": "johndoe@gmail.com"
+                            },
+                            "phone": {
+                              "type": "string",
+                              "example": "+244 000 111 222"
+                            },
+                            "status": {
+                              "type": "string",
+                              "example": "pending"
+                            },
+                            "isPhoneVerified": {
+                              "type": "boolean",
+                              "example": false
+                            },
+                            "isEmailVerified": {
+                              "type": "boolean",
+                              "example": false
+                            },
+                            "role": {
+                              "type": "string",
+                              "example": "admin or user"
+                            },
+                            "createdAt": {
+                              "type": "date",
+                              "example": "2024-02-19T10:46:26.694Z"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "User already exists"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "name is a required field"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "email is a required field; email must be a valid email"
+                        },
+                        "phone": {
+                          "type": "string",
+                          "example": "phone is a required field"
+                        },
+                        "password": {
+                          "type": "string",
+                          "example": "password is a required field"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/pe/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "List all users",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "filters",
+            "in": "query",
+            "description": "filters",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "perPage",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "description": "List all users",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "example": "ac9ee6dd-4aa9-421f-b44a-6c1daeba14fb"
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "John Doe"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "johndoe@gmail.com"
+                            },
+                            "phone": {
+                              "type": "string",
+                              "example": "+000 111 222 333"
+                            },
+                            "status": {
+                              "type": "string",
+                              "example": "pending"
+                            },
+                            "isPhoneVerified": {
+                              "type": "boolean",
+                              "example": false
+                            },
+                            "isEmailVerified": {
+                              "type": "boolean",
+                              "example": false
+                            },
+                            "avatar": {
+                              "type": "string",
+                              "example": null
+                            },
+                            "role": {
+                              "type": "string",
+                              "example": "admin or user"
+                            },
+                            "createdAt": {
+                              "type": "date",
+                              "example": "2024-02-15T16:13:59.298Z"
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "number",
+                          "example": "15"
+                        },
+                        "currentPage": {
+                          "type": "number",
+                          "example": "15"
+                        },
+                        "lastPage": {
+                          "type": "number",
+                          "example": "15"
+                        },
+                        "perPage": {
+                          "type": "number",
+                          "example": "15"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/pe/users/{id}/change-password": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Change password user",
+        "description": "Change password user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "oldPassword": {
+                    "required": true,
+                    "type": "string",
+                    "example": "some old Password"
+                  },
+                  "password": {
+                    "required": true,
+                    "type": "string",
+                    "example": "some password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "User Not Found using ID 28559c82-71d9-42fc-81fc-30b404d571c8"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "Password should be different from old password!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "oldPassword": {
+                          "type": "string",
+                          "example": "oldPassword is a required field"
+                        },
+                        "password": {
+                          "type": "string",
+                          "example": "password is a required field"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/pe/users/{id}": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Update user",
+        "description": "Update user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "required": true,
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "email": {
+                    "required": true,
+                    "type": "string",
+                    "example": "johndoe@gmail.com"
+                  },
+                  "phone": {
+                    "required": true,
+                    "type": "string",
+                    "example": "+000 111 222 333"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "User Not Found using ID 28559c82-71d9-42fc-81fc-30b404d571c8"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "string",
+                      "example": "User already exists!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "id must be a valid UUID"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "name is a required field"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "email is a required field"
+                        },
+                        "phone": {
+                          "type": "string",
+                          "example": "phone is a required field"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-access-token"
+      }
+    }
+  }
+}
