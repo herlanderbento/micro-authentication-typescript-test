@@ -64,11 +64,11 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:3002/v1/users/send-verify-code
+POST http://localhost:3002/v1/pc/users/send-verify-code
 Content-Type: application/json
 
 {
-    "email": "johndoe@gmil.com"
+   "email": "herlanderbento29@gmail.com"
 }
 
 
@@ -83,3 +83,10 @@ Content-Type: application/json
 x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYzllZTZkZC00YWE5LTQyMWYtYjQ0YS02YzFkYWViYTE0ZmIiLCJpYXQiOjE3MDgwOTUwOTd9.jD7hFcIJVEPl6q77rsPb1LHE6a6l8ndCdV47CJOcPiA
 
 
+###
+POST http://localhost:3002/v1/auth/forgot-password
+Content-Type: application/json
+
+{
+    "email": "herlanderbento29@gmail.com"
+}

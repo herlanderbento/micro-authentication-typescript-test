@@ -1,5 +1,5 @@
 import Router from "express";
-import { authenticateRoutes, authenticateSocialMediaRoutes, usersPrivateRoutes, usersPublicRoutes } from "~/modules/account/infra";
+import { authenticateRoutes, authenticateSocialMediaRoutes, usersPrivateRoutes, usersPublicRoutes } from "~/account/infra";
 
 const router = Router();
 

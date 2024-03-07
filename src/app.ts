@@ -8,7 +8,7 @@ import swaggerUi from "swagger-ui-express";
 
 import "./_shared/infra/db/mongo";
 
-import swaggerDocs from "~/docs/swagger.json";
+import swaggerDocs from "~/_docs/swagger.json";
 
 import { errors } from "./_shared/domain/errors";
 import { versions } from "./_shared/infra/configs/versions";
@@ -24,11 +24,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/v1/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.get("/v1/swagger", (request: Request, response: Response) => {
-  return response.sendFile(process.cwd() + "/src/docs/swagger.json");
+  return response.sendFile(process.cwd() + "/src/_docs/swagger.json");
 });
 
 app.get('/v1/docs', (request: Request, response: Response) => {
-  return response.sendFile(process.cwd() + '/src/docs/index.html');
+  return response.sendFile(process.cwd() + '/src/_docs/index.html');
 });
 
 app.use(versions.current, router);
