@@ -41,8 +41,8 @@ POST http://localhost:3002/v1/auth/login
 Content-Type: application/json
 
 {
-    "email": "eugeniajoaogaieta@gmail.com",
-    "password": "meuDeus"
+    "email": "johndoe@gmail.com",
+    "password": "some password"
 }
 
 ###
@@ -71,6 +71,11 @@ Content-Type: application/json
     "email": "johndoe@gmil.com"
 }
 
+
+###
+GET http://localhost:3002/v1/pe/users/john-doe-10809f44e
+Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyZWU5NmM2Ny01ZWUxLTRhMGEtYjQxNy05ODhhMDMxNzQ1NzciLCJpYXQiOjE3MDk4MzAxNjIsImV4cCI6MTcwOTgzMzc2Mn0.QiFLgcXDlQS8dRRg0tdVTt61W27-3IEGpFfIJjZyEB8
 
 ###
 DELETE  http://localhost:3002/v1/logout

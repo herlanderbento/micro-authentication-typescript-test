@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   changePasswordUserFactory,
   createUserFactory,
+  getUserFactory,
   listUsersFactory,
   updateUserFactory,
 } from "../controllers";
@@ -19,6 +20,10 @@ usersPrivateRoutes.get("/", ensureAuthenticated, (req, res) =>
   listUsersFactory.handle(req, res)
 );
 
+usersPrivateRoutes.get("/:slug", ensureAuthenticated, (req, res) =>
+  getUserFactory.handle(req, res)
+);
+
 usersPrivateRoutes.patch(
   "/:id/change-password",
   ensureAuthenticated,
@@ -28,5 +33,7 @@ usersPrivateRoutes.patch(
 usersPrivateRoutes.patch("/:id", ensureAuthenticated, (req, res) =>
   updateUserFactory.handle(req, res)
 );
+
+
 
 export { usersPublicRoutes, usersPrivateRoutes };

@@ -3,6 +3,7 @@
 export * from './authentitcate-user';
 export * from './change-password-user';
 export * from './create-user';
+export * from './get-user';
 export * from './google-sign-in';
 export * from './google-sign-in-one-top';
 export * from './google-sign-up';

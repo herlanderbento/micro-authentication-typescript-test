@@ -1,8 +1,12 @@
-
-import { NotFoundError } from "~/_shared/domain/errors";
-import { UserModel } from "../models";
-import { UserModelMapper } from "../mappers";
-import { IUserRepository, User, UserSearchParams, UserSearchResult } from "~/modules/account/domain";
+import { NotFoundError } from '~/_shared/domain/errors';
+import { UserModel } from '../models';
+import { UserModelMapper } from '../mappers';
+import {
+  IUserRepository,
+  User,
+  UserSearchParams,
+  UserSearchResult,
+} from '~/modules/account/domain';
 
 export class UserMongoRepository implements IUserRepository {
   constructor(private userModel: typeof UserModel) {}
@@ -36,6 +40,14 @@ export class UserMongoRepository implements IUserRepository {
     return model ? UserModelMapper.toEntity(model) : null;
   }
 
+  async findBySlug(slug: string): Promise<User | null> {
+    const model = await this.userModel.findOne({
+      slug,
+    });
+
+    return model ? UserModelMapper.toEntity(model) : null;
+  }
+
   async update(entity: User): Promise<void> {
     const modelProps = UserModelMapper.toModel(entity);
 
@@ -57,8 +69,8 @@ export class UserMongoRepository implements IUserRepository {
       .find({
         ...(props.filter && {
           $or: [
-            { name: { $regex: new RegExp(props.filter, "i") } },
-            { email: { $regex: new RegExp(props.filter, "i") } },
+            { name: { $regex: new RegExp(props.filter, 'i') } },
+            { email: { $regex: new RegExp(props.filter, 'i') } },
           ],
         }),
       })

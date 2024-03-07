@@ -3,24 +3,21 @@ import {
   ICryptography,
   IGeneratorToken,
   IDateProvider,
-} from "~/_shared/application";
+} from '~/_shared/application';
 import {
-  IUserCodeRepository,
   IUserRepository,
   IUserTokenRepository,
   User,
-  UserCode,
   UserToken,
-} from "~/modules/account/domain";
-import { UserAlreadyExistsError } from "../../common";
-import { CreateUserInput } from "./create-user.input";
+} from '~/modules/account/domain';
+import { UserAlreadyExistsError } from '../../common';
+import { CreateUserInput } from './create-user.input';
 
 export class CreateUserUseCase
   implements IUseCase<CreateUserInput, CreateUserOutput>
 {
   constructor(
     private userRepository: IUserRepository,
-    // private userCodeRepository: IUserCodeRepository,
     private userTokenRepository: IUserTokenRepository,
     private cryptography: ICryptography,
     private generatorToken: IGeneratorToken,
@@ -52,15 +49,6 @@ export class CreateUserUseCase
     });
 
     await this.userRepository.insert(user);
-
-    // let expireDate = this.dateProvider.addSeconds(60);
-
-    // const userCode = new UserCode({
-    //   userId: user.id,
-    //   expireDate,
-    // });
-
-    // await this.userCodeRepository.insert(userCode);
 
     const accessToken = await this.generatorToken.encrypt({
       sub: user.id,

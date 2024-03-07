@@ -1,10 +1,11 @@
-import { AggregateRoot } from "~/_shared/domain/entities/aggregate-root";
-import { EntityID } from "~/_shared/domain/value-object/entity-id.vo";
-import { Optional } from "~/_shared/domain";
-import { RolesEnum, StatusEnum } from "../enums";
+import { AggregateRoot } from '~/_shared/domain/entities/aggregate-root';
+import { EntityID } from '~/_shared/domain/value-object/entity-id.vo';
+import { Optional, Slug } from '~/_shared/domain';
+import { RolesEnum, StatusEnum } from '../enums';
 
 export type UserProps = {
   name: string;
+  slug: Slug;
   email: string;
   phone?: string;
   password?: string;
@@ -26,64 +27,41 @@ export class User extends AggregateRoot<UserProps> {
     return this.props.name;
   }
 
-  set name(value: string) {
-    this.props.name = value;
+  set name(name: string) {
+    this.props.name = name;
+    this.props.slug = Slug.createFromText(name);
   }
 
+  get slug() {
+    return this.props.slug
+  }
+  
   get email() {
     return this.props.email;
   }
 
-  set email(value: string) {
-    this.props.email = value;
-  }
-
-  get phone(): string | undefined {
+  get phone() {
     return this.props.phone;
   }
 
-  set phone(value: string) {
-    this.props.phone = value ?? null;
-  }
-
-  get status(): StatusEnum | undefined {
+  get status() {
     return this.props.status;
   }
 
-  set status(value: StatusEnum) {
-    this.props.status = value ?? StatusEnum.Pending;
-  }
-
-  get password(): string | undefined {
+  get password() {
     return this.props.password;
   }
 
-  set password(value: string) {
-    this.props.password = value ?? null;
-  }
-
-  get isPhoneVerified(): boolean | undefined {
+  get isPhoneVerified() {
     return this.props.isPhoneVerified;
   }
 
-  set isPhoneVerified(value: boolean) {
-    this.props.isPhoneVerified = value ?? false;
-  }
-
-  get isEmailVerified(): boolean | undefined {
+  get isEmailVerified() {
     return this.props.isEmailVerified;
   }
 
-  set isEmailVerified(value: boolean) {
-    this.props.isEmailVerified = value ?? false;
-  }
-
-  get avatar(): string | undefined {
+  get avatar() {
     return this.props.avatar;
-  }
-
-  set avatar(value: string) {
-    this.props.avatar = value ?? null;
   }
 
   get role() {
@@ -98,10 +76,14 @@ export class User extends AggregateRoot<UserProps> {
     return this.props.updatedAt;
   }
 
-  static create(props: Optional<UserProps, "createdAt">, id?: EntityID): User {
+  static create(
+    props: Optional<UserProps, 'createdAt' | 'slug'>,
+    id?: EntityID
+  ): User {
     const user = new User(
       {
         ...props,
+        slug: props.slug ?? Slug.createFromText(props.name),
         status: props.status ?? StatusEnum.Pending,
         isEmailVerified: props.isEmailVerified ?? false,
         isPhoneVerified: props.isPhoneVerified ?? false,
@@ -121,6 +103,7 @@ export class User extends AggregateRoot<UserProps> {
     return {
       id: this.id.toString(),
       name: this.name,
+      slug: this.slug.value,
       email: this.email,
       phone: this.phone,
       status: this.status,

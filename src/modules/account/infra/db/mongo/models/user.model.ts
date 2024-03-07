@@ -10,6 +10,10 @@ export const UserModel = model<IUserModelDocument>(
       type: String,
       required: true,
     },
+    slug: {
+      type: String,
+      required: true,
+    },
     email: {
       type: String,
       required: true,

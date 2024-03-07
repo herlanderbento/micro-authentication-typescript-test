@@ -16,4 +16,5 @@ export interface IUserRepository
   > {
   findByEmail(email: string): Promise<User | null>;
   findByPhone(phone: string): Promise<User | null>;
+  findBySlug(slug: string): Promise<User | null>;
 }

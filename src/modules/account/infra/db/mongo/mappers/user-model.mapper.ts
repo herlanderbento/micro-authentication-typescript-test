@@ -1,12 +1,13 @@
 import { User } from "~/modules/account/domain";
 import { IUserModelDocument } from "../models";
-import { EntityID } from "~/_shared/domain";
+import { EntityID, Slug } from "~/_shared/domain";
 
 export class UserModelMapper {
   static toModel(entity: User) {
     return {
       _id: entity.id,
       name: entity.name,
+      slug: entity.slug.value,
       email: entity.email,
       phone: entity.phone,
       password: entity.password,
@@ -24,6 +25,7 @@ export class UserModelMapper {
     return User.create(
       {
         name: raw.name,
+        slug: raw.slug,
         email: raw.email,
         password: raw.password,
         phone: raw.phone,

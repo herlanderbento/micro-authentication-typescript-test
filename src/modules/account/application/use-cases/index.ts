@@ -3,6 +3,7 @@
 export * from './authenticate-user';
 export * from './change-password-user';
 export * from './create-user';
+export * from './get-user';
 export * from './list-users';
 export * from './logout-user';
 export * from './reset-password-user';
