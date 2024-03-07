@@ -1,4 +1,4 @@
 export interface Queue {
-  on(queueName: string, callback: Function): Promise<void>;
-  publish(queueName: string, data: any): Promise<void>;
+  on(callback: Function): Promise<void>;
+  publish(data: any): Promise<void>;
 }

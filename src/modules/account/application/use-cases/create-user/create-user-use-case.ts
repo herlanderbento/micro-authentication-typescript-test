@@ -12,6 +12,7 @@ import {
 } from '~/modules/account/domain';
 import { UserAlreadyExistsError } from '../../common';
 import { CreateUserInput } from './create-user.input';
+import { Queue } from '~/_shared/domain';
 
 export class CreateUserUseCase
   implements IUseCase<CreateUserInput, CreateUserOutput>
@@ -21,7 +22,8 @@ export class CreateUserUseCase
     private userTokenRepository: IUserTokenRepository,
     private cryptography: ICryptography,
     private generatorToken: IGeneratorToken,
-    private dateProvider: IDateProvider
+    private dateProvider: IDateProvider,
+    private queue: Queue
   ) {}
 
   async execute(input: CreateUserInput): Promise<CreateUserOutput> {
@@ -49,6 +51,8 @@ export class CreateUserUseCase
     });
 
     await this.userRepository.insert(user);
+
+    await this.queue.publish(user);
 
     const accessToken = await this.generatorToken.encrypt({
       sub: user.id,

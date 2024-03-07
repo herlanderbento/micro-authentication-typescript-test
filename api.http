@@ -4,9 +4,9 @@ POST http://localhost:3002/v1/pc/users
 Content-Type: application/json
 
 {
-    "name": "John Doe",
-    "email": "johndoe@gmail.com",
-    "phone": "122211122",
+    "name": "Herlander de Castro Bento",
+    "email": "herlanderbento29@gmail.com",
+    "phone": "244948053705",
     "password": "some password"
 }
 
