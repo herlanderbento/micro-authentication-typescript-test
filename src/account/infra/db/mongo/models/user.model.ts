@@ -35,8 +35,6 @@ export const UserModel = model<IUserModelDocument>(
       enum: StatusEnum,
     },
     role: { type: String, enum: RolesEnum },
-    isPhoneVerified: Boolean,
-    isEmailVerified: Boolean,
     createdAt: Date,
     updatedAt: Date,
   })

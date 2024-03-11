@@ -45,7 +45,11 @@ export class User extends AggregateRoot<UserProps> {
   }
 
   get status() {
-    return this.props.status;
+    return (this.props.status as StatusEnum) ?? StatusEnum.Pending;
+  }
+
+  set status(status: StatusEnum) {
+    this.props.status = status;
   }
 
   get password() {
@@ -54,14 +58,6 @@ export class User extends AggregateRoot<UserProps> {
 
   set password(password: string) {
     this.props.password = password;
-  }
-
-  get isPhoneVerified() {
-    return this.props.isPhoneVerified;
-  }
-
-  get isEmailVerified() {
-    return this.props.isEmailVerified;
   }
 
   get avatar() {
@@ -89,8 +85,6 @@ export class User extends AggregateRoot<UserProps> {
         ...props,
         slug: props.slug ?? Slug.createFromText(props.name),
         status: props.status ?? StatusEnum.Pending,
-        isEmailVerified: props.isEmailVerified ?? false,
-        isPhoneVerified: props.isPhoneVerified ?? false,
         role: props.role ?? RolesEnum.User,
         password: props.password ?? 'password',
         createdAt: props.createdAt ?? new Date(),
@@ -112,8 +106,6 @@ export class User extends AggregateRoot<UserProps> {
       email: this.email,
       phone: this.phone,
       status: this.status,
-      isPhoneVerified: this.isPhoneVerified,
-      isEmailVerified: this.isEmailVerified,
       avatar: this.avatar,
       role: this.role,
       createdAt: this.createdAt,

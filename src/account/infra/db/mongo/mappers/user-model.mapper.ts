@@ -14,8 +14,6 @@ export class UserModelMapper {
       avatar: entity.avatar,
       status: entity.status,
       role: entity.role,
-      isEmailVerified: entity.isEmailVerified,
-      isPhoneVerified: entity.isPhoneVerified,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
     };
@@ -31,8 +29,6 @@ export class UserModelMapper {
         phone: raw.phone,
         avatar: raw.avatar,
         status: raw.status,
-        isEmailVerified: raw.isEmailVerified,
-        isPhoneVerified: raw.isPhoneVerified,
         role: raw.role,
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,

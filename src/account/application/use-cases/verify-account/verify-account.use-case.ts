@@ -2,6 +2,7 @@ import { IDateProvider, IUseCase } from "~/_shared/application";
 import {
   IUserCodeRepository,
   IUserRepository,
+  StatusEnum,
   User,
 } from "~/account/domain";
 import { InvalidVerificationCodeError, UserNotFoundError } from "../../common";
@@ -39,8 +40,7 @@ export class VerifyAccountUseCase
       throw new InvalidVerificationCodeError("Code expired!");
     }
 
-    user.isEmailVerified = true;
-    user.isPhoneVerified = true;
+    user.status = StatusEnum.Active;
 
     await this.userRepository.update(user);
 
