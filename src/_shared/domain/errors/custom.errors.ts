@@ -15,7 +15,7 @@ export const errors = (
     });
   }
 
-  console.log('error',err)
+  // console.log('error',err)
 
   return res.status(500).json({
     success: false,

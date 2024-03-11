@@ -20,7 +20,7 @@ services:
     environment:
       MONGO_ROOT_USERNAME: admin
       MONGO_ROOT_PASSWORD: admin
-      MONGO_DATABASE: micro-authentication-mongodb
+      DATABASE_URL: micro-authentication-mongodb
 
   rabbitmq:
     image: "rabbitmq:3.8-management"

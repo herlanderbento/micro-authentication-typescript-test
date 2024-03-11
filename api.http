@@ -1,7 +1,119 @@
-## Create User
+@hostname = localhost
+@port = 3000
+@host = {{hostname}}:{{port}}/v1
+@contentType = application/json
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMWYyM2NlNi03NzQ0LTQ3MDEtYmUzNS0xNWZlZGFmOTBlMzAiLCJpYXQiOjE3MTAxNjQyNzAsImV4cCI6MTcxMDE2Nzg3MH0.eVKdFUEHXTeEKolb4SAy797umq_bsCFKixx0UWJuvtQ
 
-POST http://localhost:3002/v1/pc/users
-Content-Type: application/json
+
+### Login
+POST http://{{host}}/auth/login
+Content-Type: {{contentType}}
+
+{
+    "email": "johndoe@gmail.com",
+    "password": "some password"
+}
+
+### Forgot Password
+POST http://{{host}}/auth/forgot-password
+Content-Type: {{contentType}}
+
+{
+   "email": "herlanderbento29@gmail.com"
+}
+
+### Reset Password
+POST http://{{host}}/auth/reset-password?token=
+Content-Type: {{contentType}}
+
+{
+  "password": "some password",
+  "confirmPassword": "some confirm password"
+}
+
+### send verify code user
+POST http://{{host}}/auth/send-verify-code
+Content-Type: {{contentType}}
+
+{
+  "email": "johndoe@gmail.com"
+}
+
+
+### Verify code user
+POST http://{{host}}/auth/verify-code
+Content-Type: {{contentType}}
+
+{
+  "code": "12691",
+  "email": "johndoe@gmail.com"
+}
+
+### Logout user
+DELETE  http://{{host}}/auth/logout
+Content-Type: {{contentType}}
+x-access-token: {{accessToken}}
+
+
+# Authentication Social Media
+
+### Register google one top social media 
+POST http://{{host}}/google/one-top/register
+Content-Type: {{contentType}}
+
+{
+    "credential": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjQ1NmI1MmM4MWUzNmZlYWQyNTkyMzFhNjk0N2UwNDBlMDNlYTEyNjIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI2MTMzNDU0NDM4OTMtMmk1aG1kNGVjM2EyMmVxcXNrMTJoczVxN2V0N2lqaGcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI2MTMzNDU0NDM4OTMtMmk1aG1kNGVjM2EyMmVxcXNrMTJoczVxN2V0N2lqaGcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDI3MTQzMTQ1MzExMDQ2MDc1NzEiLCJoZCI6InN0YXRlbWVudG1jLmNvbSIsImVtYWlsIjoicmF1bC5pbmFjaW9Ac3RhdGVtZW50bWMuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5iZiI6MTcwMzg3MTMyNSwibmFtZSI6IlJhdWwgSW7DoWNpbyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NJbU16djVhS1E4dkJRNUItQmNYN0dJZ3B5MkN3SXJfblV1THVONy1NdW09czk2LWMiLCJnaXZlbl9uYW1lIjoiUmF1bCAiLCJmYW1pbHlfbmFtZSI6Ikluw6FjaW8iLCJsb2NhbGUiOiJlbiIsImlhdCI6MTcwMzg3MTYyNSwiZXhwIjoxNzAzODc1MjI1LCJqdGkiOiI1NTQzYmQzNWIyM2NlMzYzNGI0MDQ0NmE2OTNlYWY4MmNkOTM1MTM1In0.iyyX6EggRnX_km68lR1Ju5QM3ei_pNigqRVfNiF7od3Le7I10PdTHatMvh9UCpuIlfarfvkeKJt3qCJ12lAVdB_bFhmAZogTHyyQno5MZkC9DkpRyMdxv4Sa8bdSe9zceg133MHRa-0uMNnAshbLeOZPp81alkrDxhtJk9Qnvxv1KoiuGVvVIWLUvMts6ZznsLYxIIaBKlsQfmnPEtJLRUjhKTzqr49K9129lReGRgYwLvnX63zWLZxeNS-KlgMzUq-vzrDyh_L0qmVbLctxHoyXJfptHkaXHLk9qMoaGTuVFgvz5KWsVFAQyJ5lU-IU4-eIFkX9z9Vhqdkd0_6yZg"
+}
+
+
+### Login google one top social media 
+POST http://{{host}}/google/one-top/login
+Content-Type: {{contentType}}
+
+{
+    "credential": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjQ1NmI1MmM4MWUzNmZlYWQyNTkyMzFhNjk0N2UwNDBlMDNlYTEyNjIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI2MTMzNDU0NDM4OTMtMmk1aG1kNGVjM2EyMmVxcXNrMTJoczVxN2V0N2lqaGcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI2MTMzNDU0NDM4OTMtMmk1aG1kNGVjM2EyMmVxcXNrMTJoczVxN2V0N2lqaGcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDI3MTQzMTQ1MzExMDQ2MDc1NzEiLCJoZCI6InN0YXRlbWVudG1jLmNvbSIsImVtYWlsIjoicmF1bC5pbmFjaW9Ac3RhdGVtZW50bWMuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5iZiI6MTcwMzg3MTMyNSwibmFtZSI6IlJhdWwgSW7DoWNpbyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NJbU16djVhS1E4dkJRNUItQmNYN0dJZ3B5MkN3SXJfblV1THVONy1NdW09czk2LWMiLCJnaXZlbl9uYW1lIjoiUmF1bCAiLCJmYW1pbHlfbmFtZSI6Ikluw6FjaW8iLCJsb2NhbGUiOiJlbiIsImlhdCI6MTcwMzg3MTYyNSwiZXhwIjoxNzAzODc1MjI1LCJqdGkiOiI1NTQzYmQzNWIyM2NlMzYzNGI0MDQ0NmE2OTNlYWY4MmNkOTM1MTM1In0.iyyX6EggRnX_km68lR1Ju5QM3ei_pNigqRVfNiF7od3Le7I10PdTHatMvh9UCpuIlfarfvkeKJt3qCJ12lAVdB_bFhmAZogTHyyQno5MZkC9DkpRyMdxv4Sa8bdSe9zceg133MHRa-0uMNnAshbLeOZPp81alkrDxhtJk9Qnvxv1KoiuGVvVIWLUvMts6ZznsLYxIIaBKlsQfmnPEtJLRUjhKTzqr49K9129lReGRgYwLvnX63zWLZxeNS-KlgMzUq-vzrDyh_L0qmVbLctxHoyXJfptHkaXHLk9qMoaGTuVFgvz5KWsVFAQyJ5lU-IU4-eIFkX9z9Vhqdkd0_6yZg"
+}
+
+### Register google social media 
+POST http://{{host}}/google/register
+Content-Type: {{contentType}}
+
+{
+    "accessToken": ""
+}
+
+### Login google social media 
+POST http://{{host}}/google/login
+Content-Type: {{contentType}}
+
+{
+    "accessToken": ""
+}
+
+### Register linkedin social media 
+POST http://{{host}}/linkedin/register
+Content-Type: {{contentType}}
+
+{
+  "code": "AQSBmNpT1YUi1lWqlP5nNXKG2YO3Eeo3TCjcejUUrjOeKraEGs7ImOd5-EmtCBtcNeJl61-1kWbiFU1qekiZsnnqgX2x4s138L6a25H10eqKMzg6nPfvj1mVcjy__Fi2WJcHfrMcPGBRips4Ru0zzmGwumTJZ1FeSNU9pFJKWPvjwPPd_FtFsauVL5Y61u9TkiLnVZN7Pv2PLre2FvQ",
+  "redirectUri": "https://new-design.b2c.mirantes.io/auth/sign-up"
+}
+
+### Login linkedin social media 
+POST http://{{host}}/linkedin/login
+Content-Type: {{contentType}}
+
+{
+  "code": "AQSBmNpT1YUi1lWqlP5nNXKG2YO3Eeo3TCjcejUUrjOeKraEGs7ImOd5-EmtCBtcNeJl61-1kWbiFU1qekiZsnnqgX2x4s138L6a25H10eqKMzg6nPfvj1mVcjy__Fi2WJcHfrMcPGBRips4Ru0zzmGwumTJZ1FeSNU9pFJKWPvjwPPd_FtFsauVL5Y61u9TkiLnVZN7Pv2PLre2FvQ",
+  "redirectUri": "https://new-design.b2c.mirantes.io/auth/sign-up"
+}
+
+
+### Users 
+
+### Create User
+POST http://{{host}}/users
+Content-Type: {{contentType}}
 
 {
     "name": "Herlander de Castro Bento",
@@ -10,83 +122,35 @@ Content-Type: application/json
     "password": "some password"
 }
 
-###
-PATCH  http://localhost:3002/v1/users/830c9509-09cf-4a92-a799-68ac6c5a4db8/change-password
-Content-Type: application/json
+
+### List all Users
+GET http://{{host}}/users?page=2&perPage=1
+Content-Type: {{contentType}}
+x-access-token: {{accessToken}}
+
+### Get User
+GET http://{{host}}/users/raul-inacio-545c9b87
+Content-Type: {{contentType}}
+x-access-token: {{accessToken}}
+
+
+### Change Password
+PATCH  http://{{host}}/users/830c9509-09cf-4a92-a799-68ac6c5a4db8/change-password
+Content-Type: {{contentType}}
+x-access-token: {{accessToken}}
 
 {
     "oldPassword": "password121",
     "password": "password1211"
 }
 
-###
-PATCH  http://localhost:3002/v1/pc/users/5659489d-25e6-4120-ac01-bacb31ddcd2c
-Content-Type: application/json
+### Update User
+PATCH  http://{{host}}/users/5659489d-25e6-4120-ac01-bacb31ddcd2c
+Content-Type: {{contentType}}
+x-access-token: {{accessToken}}
 
 {
     "name": "António Campos Gabriel",
     "email": "antiniocampos20@gmail.com",
-    "phone": "912345678",
-    "dateOfBirth": "08-05-2001",
-    "gender": "male"
-}
-
-
-###
-GET http://localhost:3002/v1/users
-Content-Type: application/json
-
-###
-POST http://localhost:3002/v1/auth/login
-Content-Type: application/json
-
-{
-    "email": "johndoe@gmail.com",
-    "password": "some password"
-}
-
-###
-POST http://localhost:3002/v1/password/reset?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4MzBjOTUwOS0wOWNmLTRhOTItYTc5OS02OGFjNmM1YTRkYjgiLCJleHBpcmVzSW4iOjEsImlhdCI6MTcwNzkwNDg3M30.YeyXbbkddW71z8J8VOPwE3xZEJ4158IZrheF-IHGDaY
-Content-Type: application/json
-
-{
-    "password": "password12",
-    "confirmPassword": "password12"
-}
-
-###
-POST http://localhost:3002/v1/users/verify-code
-Content-Type: application/json
-
-{
-    "code": "59892",
-    "email": "johndoe1@gmail.com"
-}
-
-###
-POST http://localhost:3002/v1/pc/users/send-verify-code
-Content-Type: application/json
-
-{
-   "email": "herlanderbento29@gmail.com"
-}
-
-
-###
-GET http://localhost:3002/v1/pe/users/john-doe-10809f44e
-Content-Type: application/json
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyZWU5NmM2Ny01ZWUxLTRhMGEtYjQxNy05ODhhMDMxNzQ1NzciLCJpYXQiOjE3MDk4MzAxNjIsImV4cCI6MTcwOTgzMzc2Mn0.QiFLgcXDlQS8dRRg0tdVTt61W27-3IEGpFfIJjZyEB8
-
-###
-DELETE  http://localhost:3002/v1/logout
-Content-Type: application/json
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYzllZTZkZC00YWE5LTQyMWYtYjQ0YS02YzFkYWViYTE0ZmIiLCJpYXQiOjE3MDgwOTUwOTd9.jD7hFcIJVEPl6q77rsPb1LHE6a6l8ndCdV47CJOcPiA
-
-
-###
-POST http://localhost:3002/v1/auth/forgot-password
-Content-Type: application/json
-
-{
-    "email": "herlanderbento29@gmail.com"
+    "phone": "912345678"
 }

@@ -35,7 +35,7 @@ export async function ensureAuthenticated(
   try {
     const decodedToken = verify(
       token.toString(),
-      String(process.env.JWT_SECRET)
+      String(process.env.MIRANTES_JWT_SECRET)
     ) as IPayload;
 
     let userId;

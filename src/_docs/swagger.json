@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Micro Authentication API - Mirantes Technologic",
+    "title": "Micro Authentication API - Mirantes Technologies",
     "description": "Microsservice Authentication API, documentation for developers",
     "version": "1.0.1",
     "contact": {
@@ -1036,7 +1036,7 @@
       }
     },
 
-    "/v1/pc/users": {
+    "/v1/users": {
       "post": {
         "tags": ["Users"],
         "summary": "Create user",
@@ -1199,9 +1199,7 @@
             }
           }
         }
-      }
-    },
-    "/v1/pe/users": {
+      },
       "get": {
         "tags": ["Users"],
         "summary": "List all users",
@@ -1315,7 +1313,87 @@
         }
       }
     },
-    "/v1/pe/users/{id}/change-password": {
+    "/v1/users/{slug}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get user by slug",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "description": "slug",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "description": "List all users",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "ac9ee6dd-4aa9-421f-b44a-6c1daeba14fb"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "John Doe"
+                        },
+                        "slug": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "johndoe@gmail.com"
+                        },
+                        "phone": {
+                          "type": "string",
+                          "example": "+000 111 222 333"
+                        },
+                        "status": {
+                          "type": "string",
+                          "example": "pending"
+                        },
+                        "isPhoneVerified": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "isEmailVerified": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "avatar": {
+                          "type": "string",
+                          "example": null
+                        },
+                        "role": {
+                          "type": "string",
+                          "example": "admin or user"
+                        },
+                        "createdAt": {
+                          "type": "date",
+                          "example": "2024-02-15T16:13:59.298Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/users/{id}/change-password": {
       "patch": {
         "tags": ["Users"],
         "summary": "Change password user",
@@ -1416,7 +1494,7 @@
         }
       }
     },
-    "/v1/pe/users/{id}": {
+    "/v1/users/{id}": {
       "patch": {
         "tags": ["Users"],
         "summary": "Update user",

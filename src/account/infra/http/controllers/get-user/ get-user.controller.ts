@@ -13,7 +13,7 @@ export class GetUserController {
 
     const output = await this.getUserUseCase.execute(input);
 
-    return response.status(StatusCodes.NO_CONTENT).json({
+    return response.status(StatusCodes.OK).json({
       data: output,
     });
   }

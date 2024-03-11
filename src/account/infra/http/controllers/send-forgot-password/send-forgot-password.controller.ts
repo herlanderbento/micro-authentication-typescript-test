@@ -11,6 +11,6 @@ export class SendForgotPasswordController {
 
     await this.sendForgotPasswordUseCase.execute(input);
 
-    return response.status(StatusCodes.NO_CONTENT);
+    return response.status(StatusCodes.NO_CONTENT).send()
   }
 }
