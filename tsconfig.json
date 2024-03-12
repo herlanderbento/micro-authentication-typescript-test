@@ -2,11 +2,6 @@
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
-    "rootDirs": [
-      "src",
-      "jest.config.ts",
-      "tsconfig.json"
-    ],
     "esModuleInterop": true,
     "strictPropertyInitialization": false,
     "experimentalDecorators": true,
@@ -22,5 +17,8 @@
         "./src/*"
       ]
     }
-  }
+  },
+  "include": [
+    "./src/**/*"
+  ],
 }
